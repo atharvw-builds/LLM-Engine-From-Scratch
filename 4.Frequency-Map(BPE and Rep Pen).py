@@ -10,8 +10,6 @@ def bpe(arkyle):
             pair_counts[pairs] += 1
     return pair_counts 
 pairs = bpe(arkyle)
-print(pairs)
-print(pairs.most_common(2))
 
 # 2. The Output Filter
 def Repetitive_Penalty(logits, past_context, penalty=2.0):
@@ -30,11 +28,15 @@ def Repetitive_Penalty(logits, past_context, penalty=2.0):
 # 3. Full Engine Pipeline Wrapper
 
 def run_llm_pipeline(prompt_text):
-    vocab = {'apple': 0, 'pie': 1, 'is': 2, 'good': 3, 'the': 4}
-
+    print("Running: ", {prompt_text})
+    vocab = {"the": 0, 'apple': 1, 'pie': 2, 'is': 3, 'good': 4}
     words = prompt_text.lower().split()
     past_context = [vocab[word] for word in words if word in vocab]
-    raw_logits = [10.0] * 5
+    print("Memoory (past_context): ", past_context)
+    
+    raw_logits = [10.0] * len(vocab)
+    print("Raw Logits: ", raw_logits)
     final_logits = Repetitive_Penalty(raw_logits, past_context, penalty=2.0)
-
-run_llm_pipeline('apple apple pie')
+    print("Final Logits: ", final_logits)
+run_llm_pipeline("The weather is bad.")
+run_llm_pipeline("The engine of this car is good.")
