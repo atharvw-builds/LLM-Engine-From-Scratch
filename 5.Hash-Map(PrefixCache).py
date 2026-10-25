@@ -9,8 +9,8 @@ class PrefixCache:
         return hash(state)
     def prompt_process(self, tokens):
         parent_hash = None
-        for i in range(0, len(tokens, self.build_size):
-            block = tokens[i : i + self.build_size)]
+        for i in range(0, len(tokens), self.build_size):
+            block = tokens[i : i + self.build_size]
             current_hash = self.hash_table(block, parent_hash)
 
             if current_hash in self.cache:
@@ -24,7 +24,7 @@ if __name__ == "__main__":
     engine = PrefixCache()
     prompt_1 = [10, 20, 30, 40, 99, 99]
     engine.prompt_process(prompt_1)
-    print(f"Hits: {self.hits} | Misses: {self.misses}")
+    print(f"Hits: {engine.hits} | Misses: {engine.misses}")
     prompt_2 = [10, 30, 20, 40, 50, 60]
     engine.prompt_process(prompt_2)
-    print(f"Hits: {self.hits} | Misses: {self.misses}")
+    print(f"Hits: {engine.hits} | Misses: {engine.misses}")
